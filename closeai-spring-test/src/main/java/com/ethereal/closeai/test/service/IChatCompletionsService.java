@@ -1,6 +1,8 @@
 package com.ethereal.closeai.test.service;
 
 
+import com.ethereal.closeai.test.pojo.ChatCompletions;
+
 import java.util.List;
 
 /**
@@ -9,5 +11,5 @@ import java.util.List;
  */
 public interface IChatCompletionsService {
 
-    List<String> answer(String message);
+    List<String> answer(ChatCompletions completions);
 }

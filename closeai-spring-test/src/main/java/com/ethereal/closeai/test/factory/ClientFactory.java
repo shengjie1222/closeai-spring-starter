@@ -1,20 +1,14 @@
 package com.ethereal.closeai.test.factory;
 
+import cn.gjsm.api.openai.OpenAiClient;
+import cn.gjsm.api.openai.OpenAiClientFactory;
 import com.alibaba.fastjson.JSON;
 import com.ethereal.closeai.openai.CloseAiClient;
 import com.ethereal.closeai.openai.CloseAiClientFactory;
-import com.ethereal.closeai.pojo.close.BillingCreditGrantsResponse;
-import com.ethereal.closeai.pojo.close.BillingUsageResponse;
-import com.ethereal.closeai.pojo.close.LinkResponse;
 import com.ethereal.closeai.test.config.CloseAIProperties;
+import com.ethereal.closeai.test.config.OpenAIProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * @author Jie Jie
@@ -24,26 +18,36 @@ import java.util.List;
 public class ClientFactory {
 
     @Autowired
-    private CloseAIProperties properties;
+    private OpenAIProperties openAIProperties;
 
-    private Object locker = new Object();
+    @Autowired
+    private CloseAIProperties closeAIProperties;
 
-    private CloseAiClient instance;
+    private Object openLocker = new Object();
+    private Object closeLocker = new Object();
 
-    public CloseAiClient getClient(){
-        if(instance == null){
-            synchronized (locker){
-                if(instance == null){
-                    instance =  CloseAiClientFactory.createClient(properties.getToken());
+    private OpenAiClient openAiClient;
+    private CloseAiClient closeAiClient;
+
+    public OpenAiClient getOpenClient(){
+        if(openAiClient == null){
+            synchronized (openLocker){
+                if(openAiClient == null){
+                    openAiClient = OpenAiClientFactory.createClient(openAIProperties.getToken());
                 }
             }
         }
-        return instance;
+        return openAiClient;
     }
 
-    public static void main(String[] args) throws IOException {
-        CloseAiClient client = CloseAiClientFactory.createClient("sk-SxG8HKyTPC5Tn6ROyX9uKoO5sQfh2DDng055pUHjwy8uvJDU@12891");
-        List<LinkResponse> body = client.links().execute().body();
-        System.out.println(JSON.toJSONString(body));
+    public CloseAiClient getCloseClient(){
+        if(closeAiClient == null){
+            synchronized (closeLocker){
+                if(closeAiClient == null){
+                    closeAiClient =  CloseAiClientFactory.createClient(closeAIProperties.getToken());
+                }
+            }
+        }
+        return closeAiClient;
     }
 }

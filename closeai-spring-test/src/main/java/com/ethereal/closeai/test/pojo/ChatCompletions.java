@@ -1,12 +1,9 @@
-package com.ethereal.closeai.pojo;
+package com.ethereal.closeai.test.pojo;
 
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,7 +11,6 @@ import java.util.List;
  * date 2023-08-16
  */
 @Data
-@NoArgsConstructor
 public class ChatCompletions {
     /**
      * 模型字符串 必需
@@ -87,14 +83,6 @@ public class ChatCompletions {
      */
     private String user;
 
-    public ChatCompletions(String model) {
-        this.model = model;
-    }
-
-    public static ChatCompletions build(String model){
-        return new ChatCompletions(model);
-    }
-
     public void appendMessage(String role, String content){
         if(this.messages == null) this.messages = new ArrayList<>();
         this.messages.add(new Messages(role,content));
@@ -108,35 +96,6 @@ public class ChatCompletions {
             this.role = role;
             this.content = content;
         }
-
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("{")
-                    .append("\"role\":").append("\"").append(role).append("\"")
-                    .append(", \"content\":").append("\"").append(content).append("\"")
-                    .append("}");
-            return sb.toString();
-        }
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        if(StringUtils.isNotBlank(model)) sb.append("\"model\":").append("\"").append(model).append("\"");
-        if(messages != null && messages.size() > 0) sb.append(", \"messages\":").append(Arrays.toString(messages.toArray()));
-        if(maxTokens > 0) sb.append(", \"max_tokens\":").append(maxTokens);
-        if(temperature > 0) sb.append(", \"temperature\":").append(temperature);
-        if(topP > 0) sb.append(", \"top_p\":").append(topP);
-        if(n > 0) sb.append(", \"n\":").append(n);
-        sb.append(", \"stream\":").append(stream);
-        if(StringUtils.isNotBlank(stop)) sb.append(", \"stop\":").append("\"").append(stop).append("\"");
-        if(presencePenalty > 0) sb.append(", \"presence_penalty\":").append(presencePenalty);
-        if(frequencyPenalty > 0) sb.append(", \"frequency_penalty\":").append(frequencyPenalty);
-        if(StringUtils.isNotBlank(logitBias)) sb.append(", \"logit_bias\":").append("\"").append(logitBias).append("\"");
-        if(StringUtils.isNotBlank(user)) sb.append(", \"user\":").append("\"").append(user).append("\"");
-        sb.append("}");
-        return sb.toString();
-    }
 }

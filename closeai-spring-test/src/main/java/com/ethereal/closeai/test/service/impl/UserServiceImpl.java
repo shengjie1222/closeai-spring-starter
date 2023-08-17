@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public BillingUsageResponse getBillingUsage(LocalDate startDate, LocalDate endDate) {
-        CloseAiClient service =  clientFactory.getClient();
+        CloseAiClient service =  clientFactory.getCloseClient();
         try {
             DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             BillingUsageResponse response = service.getBillingUsage(startDate.format(timeFormat),endDate.format(timeFormat)).execute().body();
@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public BillingCreditGrantsResponse getBillingCreditGrants() {
-        CloseAiClient service =  clientFactory.getClient();
+        CloseAiClient service =  clientFactory.getCloseClient();
         try {
             BillingCreditGrantsResponse response = service.getBillingCreditGrants().execute().body();
             return response;

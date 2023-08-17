@@ -1,11 +1,12 @@
 package com.ethereal.closeai.test.service.impl;
 
+import cn.gjsm.api.openai.OpenAiClient;
+import cn.gjsm.api.openai.OpenAiClientFactory;
 import cn.gjsm.api.pojo.chat.ChatCompletionChoice;
 import cn.gjsm.api.pojo.chat.ChatCompletionRequest;
 import cn.gjsm.api.pojo.chat.ChatMessage;
 import com.ethereal.closeai.openai.CloseAiClient;
-import com.ethereal.closeai.openai.CloseAiClientFactory;
-import com.ethereal.closeai.pojo.ChatCompletions;
+import com.ethereal.closeai.test.pojo.ChatCompletions;
 import com.ethereal.closeai.test.factory.ClientFactory;
 import com.ethereal.closeai.test.service.IChatCompletionsService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,10 +32,8 @@ public class ChatCompletionsServiceImpl implements IChatCompletionsService {
     private ClientFactory clientFactory;
 
     @Override
-    public List<String> answer(String message) {
-        ChatCompletions completions = new ChatCompletions();
-        completions.appendMessage("user",message);
-        CloseAiClient service =  clientFactory.getClient();
+    public List<String> answer(ChatCompletions completions) {
+        OpenAiClient service =  clientFactory.getOpenClient();
         List<ChatMessage> messages = new ArrayList<>();
         for (ChatCompletions.Messages item : completions.getMessages()) {
             ChatMessage chatMessage = new ChatMessage();
