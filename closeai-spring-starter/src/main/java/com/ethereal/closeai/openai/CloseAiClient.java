@@ -7,7 +7,6 @@ import com.ethereal.closeai.pojo.close.LinkResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
