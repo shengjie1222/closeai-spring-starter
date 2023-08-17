@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ethereal</groupId>
-    <artifactId>closeai-spring-starter-demo</artifactId>
+    <artifactId>confidant-ai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
@@ -12,7 +12,7 @@
 
     <modules>
         <module>closeai-spring-starter</module>
-        <module>closeai-spring-test</module>
+        <module>confidant-server</module>
     </modules>
 
 </project>

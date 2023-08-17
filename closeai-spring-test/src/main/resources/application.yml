@@ -1,8 +1,0 @@
-server:
-  port: 5566
-
-openai:
-  token:
-
-closeai:
-  token:

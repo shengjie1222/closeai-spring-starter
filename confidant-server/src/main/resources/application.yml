@@ -1,0 +1,8 @@
+server:
+  port: 5566
+
+openai:
+  token: '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'
+
+closeai:
+  token: 'sk-SxG8HKyTPC5Tn6ROyX9uKoO5sQfh2DDng055pUHjwy8uvJDU@12891'
